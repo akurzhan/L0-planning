@@ -8,17 +8,17 @@ ORS = [];
 
 
 if auto_config
-% 0. Generate configuration file [optional] ................................
-disp('0. Generate XML configuration file')
+% 1. Generate configuration file [optional] ................................
+disp('1. Generate XML configuration file')
 tic
 make_config_xml2;
 disp(['Done in ' num2str(toc) ' seconds.']);
 
 % 1. Generate XML off-ramp demand file [optional] ........................
-disp('1. Generate XML off-ramp demand file')
-tic
-write_offramp_demand_xml(xlsx_file, fr_demand_file, hov_demand_file, range);
-disp(['Done in ' num2str(toc) ' seconds.']);
+%disp('1. Generate XML off-ramp demand file')
+%tic
+%write_offramp_demand_xml(xlsx_file, fr_demand_file, hov_demand_file, range);
+%disp(['Done in ' num2str(toc) ' seconds.']);
 end
 
 % 2. Load basic network ..................................................
@@ -41,6 +41,7 @@ if sr_control
   disp('  B. Aggregate GP/HOV split ratios to 5min');
   is_5min_gp = 1;
   ptr.scenario_ptr.scenario.SplitRatioSet = compute_5min_splits_from_sim(ptr, gp_out, is_5min_gp);
+  ptr.scenario_ptr.save(cfg_gp);
 
   disp('  C. Run with off-ramp flows');
   system(['java -jar ' beats_jar opt_minus_s beatsprop_sr_out]);
@@ -66,5 +67,6 @@ end
 % 5. Record split ratios ...............................
 disp('5. Record split ratios')
 tic
-collect_sr(xlsx_file, range, gp_out, gp_id, hov_id, fr_id, hot_buffer);
+warmup_time = 0;
+collect_sr(xlsx_file, range, gp_out, gp_id, hov_id, fr_id, hot_buffer, warmup_time);
 disp(['Done in ' num2str(toc) ' seconds.']); 

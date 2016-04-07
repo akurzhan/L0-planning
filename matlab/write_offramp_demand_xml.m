@@ -8,7 +8,7 @@ FRK = xlsread(xlsx_file, 'Off-Ramp_Knobs', sprintf('k%d:kl%d', range(1), range(2
 %HVD = (1/3600) * xlsread(xlsx_file, 'HOV_Demand', sprintf('i%d:kj%d', range(1), range(2)));
 %HVD = xlsread(xlsx_file, 'HOV_Demand', sprintf('i%d:kj%d', range(1), range(2)));
 %FRD = (1/3600) * FRD .* FRK;
-FRD = FRD .* FRK;
+FRD = (1/3600) * FRD .* FRK;
 has_fr_dem = find(max(FRD,[],2)>0);
 %has_hov_dem = find(max(HVD,[],2)>0);
 
@@ -29,22 +29,4 @@ DemandSet.ATTRIBUTE.id = 2;
 DemandSet.ATTRIBUTE.project_id = 1;
 DemandSet.ATTRIBUTE.name = 'offramps';
 DemandSet.demandProfile = dps;
-
 xml_write(fr_demand_file,DemandSet);
-
-
-
-%dp.demand.CONTENT = '';
-%dp.demand.ATTRIBUTE.vehicle_type_id = 0;
-%dps = repmat(dp,1,length(has_hov_dem) );
-
-%for i=1:length(has_hov_dem) 
-%    dps(i).ATTRIBUTE.id = i;
-%    dps(i).ATTRIBUTE.link_id_org = hov_id(has_hov_dem(i));
-%    dps(i).demand.CONTENT = writecommaformat(HVD(has_hov_dem(i),:),'%.6f');
-%end
-
-%DemandSet.ATTRIBUTE.name = 'hov';
-%DemandSet.demandProfile = dps;
-
-%xml_write(hov_demand_file,DemandSet);

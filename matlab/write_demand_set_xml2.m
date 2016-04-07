@@ -1,4 +1,4 @@
-function write_demand_set_xml(fid, xlsx_file, range, or_id, ORS, orgf2, orgf3, orgf4)
+function write_demand_set_xml2(fid, xlsx_file, range, or_id, ORS, orgf2, orgf3, orgf4)
 % ORS - configuration table for specially treated on-ramps
 % fid - file descriptor for the output xml
 % xlsx_file - full path to the configuration spreadsheet
@@ -82,9 +82,6 @@ end
 fprintf(fid, ' </DemandSet>\n\n');
 
 return;
-
-
-
 
 
 function write_demand_profile_xml(fid, or_id, demand, hov_prct)

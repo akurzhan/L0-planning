@@ -235,7 +235,7 @@ end
 
 
 % write data to spreadsheet
-if 1
+if 0
 fprintf('Writing data to %s...\n', data_file);
 xlswrite(data_file, GP_V, 'GP_Speed', sprintf('i%d:kj%d', range(1), range(2)));
 xlswrite(data_file, GP_F, 'GP_Flow', sprintf('i%d:kj%d', range(1), range(2)));

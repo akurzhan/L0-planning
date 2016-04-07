@@ -1,6 +1,6 @@
 
 root = fileparts(fileparts(mfilename('fullpath')));
-beats_jar = fullfile(root,'beats','beats-0.1-SNAPSHOT-jar-with-dependencies.jar');
+beats_jar = fullfile(fileparts(root), 'beats', 'target', 'beats-0.1-SNAPSHOT-jar-with-dependencies.jar');
 
 auto_sr = 0;
 auto_config = 1;
@@ -92,7 +92,7 @@ beatsprop_gp     = fullfile(cfg_folder,'beats_gp_5min.properties');
 beatsprop_gp0     = fullfile(cfg_folder,'beats_gp_5min_0.properties');
 beatsprop_sr_out = fullfile(cfg_folder,'beats_srout.properties');
 act_cntrl        = fullfile(cfg_folder,'actuators_and_controllers.xml');
-cfg_gp           = fullfile(cfg_gen_folder,'gp.xml');
+cfg_gp           = fullfile(cfg_folder,'generated2.xml');
 cfg_srout        = fullfile(cfg_gen_folder,'srout.xml');
 fr_demand_file   = fullfile(cfg_gen_folder,'fr_demand.xml');
 hov_demand_file   = fullfile(cfg_gen_folder,'hov_demand.xml');
@@ -101,5 +101,7 @@ ppt_report_file  = fullfile(cfg_gen_folder,'compare_fr_flows');
 
 opt_minus_s = ' -s ';
 %opt_minus_s = ' ';
+
+warmup_time = 0;
 
 
