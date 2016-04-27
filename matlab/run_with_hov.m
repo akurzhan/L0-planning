@@ -63,7 +63,7 @@ tic
 [GP_V, GP_F, GP_D, HOV_V, HOV_F, HOV_D, ORD, ORF, FRD, FRF, ORQ, ORS] = extract_simulation_data(ptr,xlsx_file,range,no_ml_queue,ORS,destination_commodities,orgf2,orgf3,orgf4);
 disp(['Done in ' num2str(toc) ' seconds.']); 
 
-if ~sr_control | 0
+if ~sr_control | 1
   return;
 end
 
