@@ -1,7 +1,7 @@
-function [SplitRatioSet]=compute_5min_splits_from_sim(ptr,gp_out,is_5min_gp)
+function [SplitRatioSet]=compute_5min_splits_from_sim(ptr,gp_out,is_5min_gp, vt_ids)
 
 % preliminary
-vt_ids = [0 1];
+%vt_ids = [0 1];
 numVt = length(vt_ids);
 num_nodes = ptr.scenario_ptr.get_num_nodes;
 node_ids = ptr.scenario_ptr.get_node_ids;

@@ -1,4 +1,4 @@
-function [GP_V, GP_F, GP_D, HOV_V, HOV_F, HOV_D, ORD, ORF, FRD, FRF, ORQ, ORS_updated] = extract_simulation_data(ptr,data_file,range,no_ml_queue,ORS,orgf2,orgf3,orgf4)
+function [GP_V, GP_F, GP_D, HOV_V, HOV_F, HOV_D, ORD, ORF, FRD, FRF, ORQ, ORS_updated] = extract_simulation_data(ptr,data_file,range,no_ml_queue,ORS,dc,orgf2,orgf3,orgf4)
 
 % Extracting link data
 link_id = xlsread(data_file, 'GP_Speed', sprintf('a%d:f%d', range(1), range(2)));
@@ -64,8 +64,14 @@ fprintf('Extracting simulation data - speeds and flows...\n');
 for i = 1:m
   idx = find(link_id == gp_id(i));
   den = ptr.density_veh{1}(2:289, idx) + ptr.density_veh{2}(2:289, idx);
-  den = den' ./ (llen(i)*ones(1, 288));
   outflow = ptr.outflow_veh{1}(:, idx) + ptr.outflow_veh{2}(:, idx);
+  inflow = ptr.inflow_veh{1}(:, idx) + ptr.inflow_veh{2}(:, idx);
+  for j = 1:dc
+    den =  den + ptr.density_veh{2+j}(2:289, idx);
+    outflow = outflow + ptr.outflow_veh{2+j}(:, idx);
+    inflow = inflow + ptr.inflow_veh{2+j}(:, idx);
+  end
+  den = den' ./ (llen(i)*ones(1, 288));
   outflow = 12*outflow';
   V = outflow ./ den;
   V = max([V; zeros(1, 288)]);
@@ -74,23 +80,26 @@ for i = 1:m
   GP_D(i, :) = den;
   inflow = ptr.inflow_veh{1}(:, idx) + ptr.inflow_veh{2}(:, idx);
   inflow = 12*inflow';
-  %inflow = min([inflow; gp_cap(i)*ones(1, 288)]);
   GP_F(i, :) = inflow;
 
   if hov_id(i) ~= 0
     idx = find(link_id == hov_id(i));
     den = ptr.density_veh{1}(2:289, idx) + ptr.density_veh{2}(2:289, idx);
-    den = den' ./ (llen(i)*ones(1, 288));
     outflow = ptr.outflow_veh{1}(:, idx) + ptr.outflow_veh{2}(:, idx);
+    inflow = ptr.inflow_veh{1}(:, idx) + ptr.inflow_veh{2}(:, idx);
+    for j = 1:dc
+      den = den + ptr.density_veh{2+j}(2:289, idx);
+      outflow = outflow + ptr.outflow_veh{2+j}(:, idx);
+      inflow = inflow + ptr.inflow_veh{2+j}(:, idx);
+    end
+    den = den' ./ (llen(i)*ones(1, 288));
     outflow = 12*outflow';
     V = outflow ./ den;
     V = max([V; zeros(1, 288)]);
     V = min([V; ffspeeds(i)*ones(1, 288)]);
     HOV_V(i, :) = V;
     HOV_D(i, :) = den;
-    inflow = ptr.inflow_veh{1}(:, idx) + ptr.inflow_veh{2}(:, idx);
     inflow = 12*inflow';
-    %inflow = min([inflow; hov_cap(i)*ones(1, 288)]);
     HOV_F(i, :) = inflow;
   end
 end
@@ -221,6 +230,9 @@ FRF = FRD;
 for i = 1:m
   idx = find(link_id == fr_id(has_fr(i)));
   inflow = ptr.inflow_veh{1}(:, idx) + ptr.inflow_veh{2}(:, idx);
+  for j = 1:dc
+    inflow = inflow + ptr.inflow_veh{j+2}(:, idx);
+  end
   inflow = 12*inflow';
   FRF(has_fr(i), :) = inflow;
 end

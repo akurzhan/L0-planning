@@ -17,12 +17,13 @@ orgf2 = 0;
 orgf3 = 0;
 orgf4 = 0;
 
+destination_commodities = 0;
 
 %init_210E
-%init_210E_HOT
+init_210E_HOT
 %init_210W
 
-init_680N_2013
+%init_680N_2013
 %init_680S_2013
 
 %init_680N_rm_override_2013

@@ -1,4 +1,4 @@
-function write_sr_set_xml2(fid, xlsx_file, range, gp_id, hov_id, or_id, fr_id, ORS, hot_offramps,warmup_time)
+function [nodes, gates] = write_sr_set_xml2(fid, xlsx_file, range, gp_id, hov_id, or_id, fr_id, ORS, hot_offramps, dc, warmup_time)
 % fid - file descriptor for the output xml
 % xlsx_file - full path to the configuration spreadsheet
 % range - row range to be read from the spreadsheet
@@ -7,12 +7,15 @@ function write_sr_set_xml2(fid, xlsx_file, range, gp_id, hov_id, or_id, fr_id, O
 % or_id - array of on-ramp link IDs
 % fr_id - array of off-ramp link IDs
 % ORS - configuration table for specially treated on-ramps
+% dc - number of destination commodities
 
 disp('  D. Generating split ratio set...');
 
 warmup_steps = round(warmup_time/300);
 
 % Link IDs
+gates = xlsread(xlsx_file, 'Configuration', sprintf('c%d:c%d', range(1), range(2)))';
+% nodes = gp_id;
 nodes = xlsread(xlsx_file, 'Configuration', sprintf('y%d:y%d', range(1), range(2)))';
 SR = xlsread(xlsx_file, 'Off-Ramp_SplitRatios', sprintf('k%d:kl%d', range(1), range(2)));
 SR = [repmat(SR(:,1),1,warmup_steps) SR];
@@ -37,7 +40,7 @@ fprintf(fid, ' <SplitRatioSet id="1" project_id="1">\n');
 
 for i = 2:sz
     if (hov_id(i) ~= 0) | (fr_id(i) ~= 0)
-        write_sr_profile_xml(fid, nodes(i-1), gp_id(i-1:i), hov_id(i-1:i), or_id(i), fr_id(i), SR(i, :), HSR(i, :), ORS, warmup_time);
+        write_sr_profile_xml(fid, nodes, gp_id, hov_id, or_id, fr_id, SR, HSR, ORS, gates, i, dc, warmup_time);
     end
 end
 
@@ -46,89 +49,140 @@ fprintf(fid, ' </SplitRatioSet>\n\n');
 return;
 
 
-function write_sr_profile_xml(fid, nd_id, gp_id, hov_id, or_id, fr_id, srp, hsrp, ORS, warmup_time)
+
+
+
+
+function write_sr_profile_xml(fid, nd_id, gp_id, hov_id, or_id, fr_id, srp, hsrp, ORS, gates, idx, dc, warmup_time)
 % fid - file descriptor for the output xml
-% gp_id - previous and current GP link IDs
-% hov_id - previous and current HOV link IDs
-% or_id - on-ramp ID
-% fr_id - of-ramp ID
+% gp_id - GP link IDs
+% hov_id - HOV link IDs
+% or_id - on-ramp IDs
+% fr_id - off-ramp IDs
 % srp - array of off-ramp split ratios
 % hsrp - array of off-ramp split ratios for HOT traffic
 % ORS - configuration table for specially treated on-ramps
 
-if size(srp, 2) < 288
-    srp(288) = 0;
-end
-if size(hsrp, 2) < 288
-    hsrp(288) = 0;
-end
+%if size(srp, 2) < 288
+%    srp(288) = 0;
+%end
+%if size(hsrp, 2) < 288
+%    hsrp(288) = 0;
+%end
 
 sov_sr_buf = '-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1';
 
 
-%fprintf(fid, '   <splitRatioProfile id="%d" node_id="%d" dt="300" start_time="0">\n', gp_id(2), gp_id(2));
-fprintf(fid, '   <splitRatioProfile id="%d" node_id="%d" dt="300" start_time="%d">\n', nd_id, nd_id,-warmup_time);
+fprintf(fid, '   <splitRatioProfile id="%d" node_id="%d" dt="300" start_time="%d">\n', nd_id(idx-1), nd_id(idx-1), -warmup_time);
 
-fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">-1</splitratio>\n', gp_id(1), gp_id(2));
-fprintf(fid, '    <splitratio vehicle_type_id="1" link_in="%d" link_out="%d">-1</splitratio>\n', gp_id(1), gp_id(2));
-
-if hov_id(2) ~= 0   % HOV output exists
-    fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">-1</splitratio>\n', gp_id(1), hov_id(2));
-    fprintf(fid, '    <splitratio vehicle_type_id="1" link_in="%d" link_out="%d">%s</splitratio>\n', gp_id(1), hov_id(2), sov_sr_buf);
+for i = 0:(dc+1)
+  fprintf(fid, '    <splitratio vehicle_type_id="%d" link_in="%d" link_out="%d">-1</splitratio>\n',i, gp_id(idx-1), gp_id(idx));
 end
 
-if fr_id ~= 0   % Off-ramp exists
-    fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">%s</splitratio>\n', gp_id(1), fr_id, form_buffer(srp));
-    fprintf(fid, '    <splitratio vehicle_type_id="1" link_in="%d" link_out="%d">%s</splitratio>\n', gp_id(1), fr_id, form_buffer(srp));
+if hov_id(idx) ~= 0   % HOV output exists
+  if dc == 0
+    fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">-1</splitratio>\n', gp_id(idx-1), hov_id(idx));
+    fprintf(fid, '    <splitratio vehicle_type_id="1" link_in="%d" link_out="%d">%s</splitratio>\n', gp_id(idx-1), hov_id(idx), sov_sr_buf);
+  else
+    fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">%d</splitratio>\n', gp_id(idx-1), hov_id(idx), -sign(gates(idx)));
+    for i = 1:(dc+1)
+      fprintf(fid, '    <splitratio vehicle_type_id="%d" link_in="%d" link_out="%d">0</splitratio>\n', i, gp_id(idx-1), hov_id(idx));
+    end
+  end
+end
+
+if fr_id(idx) ~= 0   % Off-ramp exists
+  fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">%s</splitratio>\n', gp_id(idx-1), fr_id(idx), form_buffer(srp(idx, :)));
+  fprintf(fid, '    <splitratio vehicle_type_id="1" link_in="%d" link_out="%d">%s</splitratio>\n', gp_id(idx-1), fr_id(idx), form_buffer(srp(idx, :)));
+  if dc > 0
+    fr_num = get_offramp_seqno(fr_id, gates, idx) + 1;  % get off-ramp number after the gate
+    for i = 2:(dc+1)
+      fprintf(fid, '    <splitratio vehicle_type_id="%d" link_in="%d" link_out="%d">%d</splitratio>\n', i, gp_id(idx-1), fr_id(idx), (fr_num == i));
+    end
+  end
 end
 
 
-if hov_id(1) ~= 0   % HOV input exists
-    fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">-1</splitratio>\n', hov_id(1), gp_id(2));
-    fprintf(fid, '    <splitratio vehicle_type_id="1" link_in="%d" link_out="%d">-1</splitratio>\n', hov_id(1), gp_id(2));
+if hov_id(idx-1) ~= 0   % HOV input exists
+  if dc == 0
+    fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">-1</splitratio>\n', hov_id(idx-1), gp_id(idx));
+    fprintf(fid, '    <splitratio vehicle_type_id="1" link_in="%d" link_out="%d">-1</splitratio>\n', hov_id(idx-1), gp_id(idx));
+  else
+    for i = 0:(dc+1)
+      fprintf(fid, '    <splitratio vehicle_type_id="%d" link_in="%d" link_out="%d">%d</splitratio>\n', i, hov_id(idx-1), gp_id(idx), -sign(gates(idx)));
+    end
+  end
     
-    if hov_id(2) ~= 0   % HOV output exists
-        fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">-1</splitratio>\n', hov_id(1), hov_id(2));
-        fprintf(fid, '    <splitratio vehicle_type_id="1" link_in="%d" link_out="%d">%s</splitratio>\n', hov_id(1), hov_id(2), sov_sr_buf);
+    if hov_id(idx) ~= 0   % HOV output exists
+      if dc == 0
+        fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">-1</splitratio>\n', hov_id(idx-1), hov_id(idx));
+        fprintf(fid, '    <splitratio vehicle_type_id="1" link_in="%d" link_out="%d">%s</splitratio>\n', hov_id(idx-1), hov_id(idx), sov_sr_buf);
+      else
+        fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">-1</splitratio>\n', hov_id(idx-1), hov_id(idx));
+        for i = 1:(dc+1)
+          fprintf(fid, '    <splitratio vehicle_type_id="%d" link_in="%d" link_out="%d">%d</splitratio>\n', i, hov_id(idx-1), hov_id(idx), sign(gates(idx))-1);
+        end
+      end
     end
     
-    if fr_id ~= 0   % Off-ramp exists
-        fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">%s</splitratio>\n', hov_id(1), fr_id, form_buffer(hsrp));
-        fprintf(fid, '    <splitratio vehicle_type_id="1" link_in="%d" link_out="%d">%s</splitratio>\n', hov_id(1), fr_id, form_buffer(hsrp));
+    if fr_id(idx) ~= 0   % Off-ramp exists
+      if dc == 0
+        fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">%s</splitratio>\n', hov_id(idx-1), fr_id(idx), form_buffer(hsrp(idx, :)));
+        fprintf(fid, '    <splitratio vehicle_type_id="1" link_in="%d" link_out="%d">%s</splitratio>\n', hov_id(idx-1), fr_id(idx), form_buffer(hsrp(idx, :)));
+      else
+        for i = 0:(dc+1)
+          fprintf(fid, '    <splitratio vehicle_type_id="%d" link_in="%d" link_out="%d">0</splitratio>\n', i, hov_id(idx-1), fr_id(idx));
+        end
+      end
     end
 end
 
 
-if or_id ~= 0   % On-ramp exists
+if or_id(idx) ~= 0   % On-ramp exists
     ors = find_or_struct(ORS, or_id);
     if isempty(ors) | isempty(ors.peers)
-        fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">-1</splitratio>\n', or_id, gp_id(2));
-        fprintf(fid, '    <splitratio vehicle_type_id="1" link_in="%d" link_out="%d">-1</splitratio>\n', or_id, gp_id(2));
+      if dc == 0
+        fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">-1</splitratio>\n', or_id(idx), gp_id(idx));
+        fprintf(fid, '    <splitratio vehicle_type_id="1" link_in="%d" link_out="%d">-1</splitratio>\n', or_id(idx), gp_id(idx));
+      else
+        for i = 0:(dc+1)
+          fprintf(fid, '    <splitratio vehicle_type_id="%d" link_in="%d" link_out="%d">-1</splitratio>\n', i, or_id(idx), gp_id(idx));
+        end
+      end
         
-        if hov_id(2) ~= 0   % HOV output exists
-            fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">-1</splitratio>\n', or_id, hov_id(2));
-            fprintf(fid, '    <splitratio vehicle_type_id="1" link_in="%d" link_out="%d">%s</splitratio>\n', or_id, hov_id(2), sov_sr_buf);
+        if hov_id(idx) ~= 0   % HOV output exists
+          if dc == 0
+            fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">-1</splitratio>\n', or_id(idx), hov_id(idx));
+            fprintf(fid, '    <splitratio vehicle_type_id="1" link_in="%d" link_out="%d">%s</splitratio>\n', or_id(idx), hov_id(idx), sov_sr_buf);
+          else
+            fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">%d</splitratio>\n', or_id(idx), hov_id(idx), -sign(gates(idx)));
+            for i = 1:(dc+1)
+              fprintf(fid, '    <splitratio vehicle_type_id="%d" link_in="%d" link_out="%d">0</splitratio>\n', i, or_id(idx), hov_id(idx));
+            end
+          end
         end
         
         if fr_id ~= 0   % Off-ramp exists
-            fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">0</splitratio>\n', or_id, fr_id);
-            fprintf(fid, '    <splitratio vehicle_type_id="1" link_in="%d" link_out="%d">0</splitratio>\n', or_id, fr_id);
+          for i = 0:(dc+1)
+            fprintf(fid, '    <splitratio vehicle_type_id="%d" link_in="%d" link_out="%d">0</splitratio>\n', i, or_id(idx), fr_id(idx));
+          end
         end
     else
+	%TODO
         if isempty(ors.feeders)
             in_count = size(ors.peers, 2);
             for j = 1:in_count
-                fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">-1</splitratio>\n', ors.peers(j), gp_id(2));
-                fprintf(fid, '    <splitratio vehicle_type_id="1" link_in="%d" link_out="%d">-1</splitratio>\n', ors.peers(j), gp_id(2));
+                fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">-1</splitratio>\n', ors.peers(j), gp_id(idx));
+                fprintf(fid, '    <splitratio vehicle_type_id="1" link_in="%d" link_out="%d">-1</splitratio>\n', ors.peers(j), gp_id(idx));
                 
-                if hov_id(2) ~= 0   % HOV output exists
-                    fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">-1</splitratio>\n', ors.peers(j), hov_id(2));
-                    fprintf(fid, '    <splitratio vehicle_type_id="1" link_in="%d" link_out="%d">%s</splitratio>\n', ors.peers(j), hov_id(2), sov_sr_buf);
+                if hov_id(idx) ~= 0   % HOV output exists
+                    fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">-1</splitratio>\n', ors.peers(j), hov_id(idx));
+                    fprintf(fid, '    <splitratio vehicle_type_id="1" link_in="%d" link_out="%d">%s</splitratio>\n', ors.peers(j), hov_id(idx), sov_sr_buf);
                 end
                 
-                if fr_id ~= 0   % Off-ramp exists
-                    fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">0</splitratio>\n', ors.peers(j), fr_id);
-                    fprintf(fid, '    <splitratio vehicle_type_id="1" link_in="%d" link_out="%d">0</splitratio>\n', ors.peers(j), fr_id);
+                if fr_id(idx) ~= 0   % Off-ramp exists
+                    fprintf(fid, '    <splitratio vehicle_type_id="0" link_in="%d" link_out="%d">0</splitratio>\n', ors.peers(j), fr_id(idx));
+                    fprintf(fid, '    <splitratio vehicle_type_id="1" link_in="%d" link_out="%d">0</splitratio>\n', ors.peers(j), fr_id(idx));
                 end
             end
         end
@@ -139,6 +193,9 @@ end
 fprintf(fid, '   </splitRatioProfile>\n');
 
 return;
+
+
+
 
 function buf = form_buffer(sr)
 % sr - split ratio array
@@ -155,3 +212,35 @@ for i = 1:sz
 end
 
 return;
+
+
+
+
+
+
+
+
+
+
+function cnt = get_offramp_seqno(fr_id, gates, idx)
+% fr_id - off-ramp IDs
+% gates - array, where non-zero entries indicate gate locations
+% idx -  index of the currently processed entry
+
+i = idx - 1;
+cnt = 1;
+
+while (gates(i) == 0) & (i > 0)
+  if fr_id(i) ~= 0
+    cnt = cnt + 1;
+  end
+  if gates(i) > 0
+    break;
+  end
+  i = i - 1;
+end
+
+return;
+
+
+

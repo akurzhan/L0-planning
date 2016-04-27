@@ -13,6 +13,9 @@ disp('1. Generate XML configuration file')
 tic
 make_config_xml2;
 disp(['Done in ' num2str(toc) ' seconds.']);
+if 0
+	return
+end
 
 % 1. Generate XML off-ramp demand file [optional] ........................
 %disp('1. Generate XML off-ramp demand file')
@@ -40,7 +43,7 @@ if sr_control
 
   disp('  B. Aggregate GP/HOV split ratios to 5min');
   is_5min_gp = 1;
-  ptr.scenario_ptr.scenario.SplitRatioSet = compute_5min_splits_from_sim(ptr, gp_out, is_5min_gp);
+  ptr.scenario_ptr.scenario.SplitRatioSet = compute_5min_splits_from_sim(ptr, gp_out, is_5min_gp, 0:(destination_commodities+1));
   ptr.scenario_ptr.save(cfg_gp);
 
   disp('  C. Run with off-ramp flows');
@@ -57,7 +60,7 @@ disp(['Done in ' num2str(toc) ' seconds.']);
 % 4. Put the result into Excel spreadsheet ...............................
 disp('4. Put the result into Excel spreadsheet')
 tic
-[GP_V, GP_F, GP_D, HOV_V, HOV_F, HOV_D, ORD, ORF, FRD, FRF, ORQ, ORS] = extract_simulation_data(ptr,xlsx_file,range,no_ml_queue,ORS,orgf2,orgf3,orgf4);
+[GP_V, GP_F, GP_D, HOV_V, HOV_F, HOV_D, ORD, ORF, FRD, FRF, ORQ, ORS] = extract_simulation_data(ptr,xlsx_file,range,no_ml_queue,ORS,destination_commodities,orgf2,orgf3,orgf4);
 disp(['Done in ' num2str(toc) ' seconds.']); 
 
 if ~sr_control | 0

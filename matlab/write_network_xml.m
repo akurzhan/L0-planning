@@ -19,6 +19,7 @@ hov_id = xlsread(xlsx_file, 'Configuration', sprintf('b%d:b%d', range(1), range(
 or_id = xlsread(xlsx_file, 'Configuration', sprintf('o%d:o%d', range(1), range(2)))';
 fr_id = xlsread(xlsx_file, 'Configuration', sprintf('v%d:v%d', range(1), range(2)))';
 nodes = xlsread(xlsx_file, 'Configuration', sprintf('y%d:y%d', range(1), range(2)))';
+gates = xlsread(xlsx_file, 'Configuration', sprintf('c%d:c%d', range(1), range(2)))';
 
 % Lanes
 aux_lanes = xlsread(xlsx_file, 'Configuration', sprintf('h%d:h%d', range(1), range(2)))';
@@ -44,7 +45,7 @@ fprintf(fid, '   </position>\n');
 % Node list
 fprintf(fid, '   <NodeList>\n');
 % First terminal node
-write_node_xml(fid, gp_id(1), [], gp_id(1));
+write_node_xml(fid, gp_id(1), 1, [], gp_id(1));
 for i = 2:sz
   in_links = gp_id(i-1);
   if hov_id(i-1) ~= 0
@@ -54,21 +55,21 @@ for i = 2:sz
     ors = find_or_struct(ORS, or_id(i));
     if isempty(ors)
       in_links = [in_links or_id(i)];
-      write_node_xml(fid, or_id(i), [], or_id(i)); % on-ramp terminal
+      write_node_xml(fid, or_id(i), 1, [], or_id(i)); % on-ramp terminal
     else
       if isempty(ors.feeders)
         in_links = [in_links ors.peers];
         in_count = size(ors.peers, 2); 
         for j = 1:in_count
-          write_node_xml(fid, ors.peers(j), [], ors.peers(j)); % on-ramp terminal
+          write_node_xml(fid, ors.peers(j), 1, [], ors.peers(j)); % on-ramp terminal
         end
       else
         in_links = [in_links or_id(i)];
         in_count = size(ors.feeders, 2); 
         for j = 1:in_count
-          write_node_xml(fid, ors.feeders(j), [], ors.feeders(j)); % on-ramp terminal
+          write_node_xml(fid, ors.feeders(j), 1, [], ors.feeders(j)); % on-ramp terminal
         end
-        write_node_xml(fid, ors.id, ors.feeders, ors.id); % internal node
+        write_node_xml(fid, ors.id, 1, ors.feeders, ors.id); % internal node
       end
     end
   end
@@ -78,15 +79,15 @@ for i = 2:sz
   end
   if fr_id(i) ~= 0
     out_links = [out_links fr_id(i)];
-    write_node_xml(fid, fr_id(i), fr_id(i), []); % off-ramp terminal
+    write_node_xml(fid, fr_id(i), 1, fr_id(i), []); % off-ramp terminal
   end
   %write_node_xml(fid, gp_id(i), in_links, out_links); % internal node
-  write_node_xml(fid, nodes(i-1), in_links, out_links); % internal node
+  write_node_xml(fid, nodes(i-1), gates(i), in_links, out_links); % internal node
 end
 % Last terminal node
-write_node_xml(fid, last_node_id, gp_id(sz), []);
+write_node_xml(fid, last_node_id, 1, gp_id(sz), []);
 if hov_id(sz) ~= 0
-  write_node_xml(fid, last_node_id2, hov_id(sz), []);
+  write_node_xml(fid, last_node_id2, 1, hov_id(sz), []);
 end
 fprintf(fid, '   </NodeList>\n');
 
@@ -160,14 +161,17 @@ return;
 
 
 
-function write_node_xml(fid, node_id, in_links, out_links)
+function write_node_xml(fid, node_id, gate, in_links, out_links)
 % fid - file descriptor for output XML
 % node_id - node ID
 % in_links - array of input links
 % out_links - array of output links
 
-
-fprintf(fid, '    <node id="%d">\n', node_id);
+if gate == 0
+  fprintf(fid, '    <node id="%d" has_managed_lane_barrier="true">\n', node_id);
+else
+  fprintf(fid, '    <node id="%d">\n', node_id);
+end
 
 if isempty(in_links) | isempty(out_links)
   fprintf(fid, '     <node_type id="0" name="terminal"/>\n');
