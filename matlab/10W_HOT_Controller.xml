@@ -1,0 +1,428 @@
+<controller dt="5" id="55" name="" type="HOT_Lookup" enabled="true">
+			<table name="Off-Peak 1">
+				<parameters>
+					<parameter name="GP Link" value="6"/>
+					<parameter name="HOT Link" value="1006"/>
+					<parameter name="Entering Links" value="5"/>
+					<parameter name="FF Price Coefficient" value="-1"/>
+					<parameter name="FF Intercept" value="0"/>
+					<parameter name="Congested Price Coefficient" value="-0.06262"/>
+					<parameter name="Congested Density Coefficient" value="0.01153"/>
+					<parameter name="Congested Intercept" value="-0.6931"/>
+					<parameter name="VehTypeIn" value="1"/>
+					<parameter name="VehTypeOut" value="2"/>
+					<parameter name="Start Time" value="0"/>
+					<parameter name="Stop Time" value="18000"/>
+				</parameters>
+				<column_names>
+					<column_name name="HOT Lane Flow" key="false" id="1"/>
+					<column_name name="HOT Lane Speed" key="false" id="2"/>
+					<column_name name="GP Lane Speed" key="false" id="3"/>
+					<column_name name="Price" key="false" id="4"/>
+				</column_names>
+				<row>
+					<column id="1">0</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">25</column>
+				</row>
+				<row>
+					<column id="1">4000</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">25</column>
+				</row>
+			</table>
+
+			<table name="Morning Peak">
+				<parameters>
+					<parameter name="GP Link" value="6"/>
+					<parameter name="HOT Link" value="1006"/>
+					<parameter name="Entering Links" value="5"/>
+					<parameter name="FF Price Coefficient" value="-1"/>
+					<parameter name="FF Intercept" value="0"/>
+					<parameter name="Congested Price Coefficient" value="-0.005262"/>
+					<parameter name="Congested Density Coefficient" value="0.01153"/>
+					<parameter name="Congested Intercept" value="-0.6931"/>
+					<parameter name="VehTypeIn" value="1"/>
+					<parameter name="VehTypeOut" value="2"/>
+					<parameter name="Start Time" value="18000"/>
+					<parameter name="Stop Time" value="32400"/>
+				</parameters>
+				<column_names>
+					<column_name name="HOT Lane Flow" key="false" id="1"/>
+					<column_name name="HOT Lane Speed" key="false" id="2"/>
+					<column_name name="GP Lane Speed" key="false" id="3"/>
+					<column_name name="Price" key="false" id="4"/>
+				</column_names>
+				<row>
+					<column id="1">0</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">35</column>
+				</row>
+				<row>
+					<column id="1">585</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">35</column>
+				</row>
+				<row>
+					<column id="1">651</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">40</column>
+				</row>
+				<row>
+					<column id="1">724</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">45</column>
+				</row>
+				<row>
+					<column id="1">804</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">50</column>
+				</row>
+				<row>
+					<column id="1">890</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">55</column>
+				</row>
+				<row>
+					<column id="1">983</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">60</column>
+				</row>
+				<row>
+					<column id="1">1082</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">65</column>
+				</row>
+				<row>
+					<column id="1">1188</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">70</column>
+				</row>
+				<row>
+					<column id="1">1301</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">75</column>
+				</row>
+				<row>
+					<column id="1">1421</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">80</column>
+				</row>
+				<row>
+					<column id="1">1547</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">85</column>
+				</row>
+				<row>
+					<column id="1">1680</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">90</column>
+				</row>
+				<row>
+					<column id="1">1820</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">95</column>
+				</row>
+				<row>
+					<column id="1">1966</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">100</column>
+				</row>
+				<row>
+					<column id="1">2119</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">105</column>
+				</row>
+				<row>
+					<column id="1">2279</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">110</column>
+				</row>
+				<row>
+					<column id="1">2446</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">115</column>
+				</row>
+				<row>
+					<column id="1">2619</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">120</column>
+				</row>
+				<row>
+					<column id="1">2799</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">125</column>
+				</row>
+				<row>
+					<column id="1">2985</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">130</column>
+				</row>
+				<row>
+					<column id="1">3178</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">135</column>
+				</row>
+				<row>
+					<column id="1">3378</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">140</column>
+				</row>
+			</table>
+			
+			<table name="Off-Peak 2">
+				<parameters>
+					<parameter name="GP Link" value="6"/>
+					<parameter name="HOT Link" value="1006"/>
+					<parameter name="Entering Links" value="5"/>
+					<parameter name="FF Price Coefficient" value="-1"/>
+					<parameter name="FF Intercept" value="0"/>
+					<parameter name="Congested Price Coefficient" value="-0.06262"/>
+					<parameter name="Congested Density Coefficient" value="0.01153"/>
+					<parameter name="Congested Intercept" value="-0.6931"/>
+					<parameter name="VehTypeIn" value="1"/>
+					<parameter name="VehTypeOut" value="2"/>
+					<parameter name="Start Time" value="32400"/>
+					<parameter name="Stop Time" value="57600"/>
+				</parameters>
+				<column_names>
+					<column_name name="HOT Lane Flow" key="false" id="1"/>
+					<column_name name="HOT Lane Speed" key="false" id="2"/>
+					<column_name name="GP Lane Speed" key="false" id="3"/>
+					<column_name name="Price" key="false" id="4"/>
+				</column_names>
+				<row>
+					<column id="1">0</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">25</column>
+				</row>
+				<row>
+					<column id="1">4000</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">25</column>
+				</row>
+			</table>				
+			
+			<table name="Afternoon Peak">
+				<parameters>
+					<parameter name="GP Link" value="6"/>
+					<parameter name="HOT Link" value="1006"/>
+					<parameter name="Entering Links" value="5"/>
+					<parameter name="FF Price Coefficient" value="-1"/>
+					<parameter name="FF Intercept" value="0"/>
+					<parameter name="Congested Price Coefficient" value="-0.01262"/>
+					<parameter name="Congested Density Coefficient" value="0.01153"/>
+					<parameter name="Congested Intercept" value="-0.6931"/>
+					<parameter name="VehTypeIn" value="1"/>
+					<parameter name="VehTypeOut" value="2"/>
+					<parameter name="Start Time" value="57600"/>
+					<parameter name="Stop Time" value="68400"/>
+				</parameters>
+				<column_names>
+					<column_name name="HOT Lane Flow" key="false" id="1"/>
+					<column_name name="HOT Lane Speed" key="false" id="2"/>
+					<column_name name="GP Lane Speed" key="false" id="3"/>
+					<column_name name="Price" key="false" id="4"/>
+				</column_names>
+				<row>
+					<column id="1">0</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">35</column>
+				</row>
+				<row>
+					<column id="1">585</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">35</column>
+				</row>
+				<row>
+					<column id="1">651</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">40</column>
+				</row>
+				<row>
+					<column id="1">724</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">45</column>
+				</row>
+				<row>
+					<column id="1">804</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">50</column>
+				</row>
+				<row>
+					<column id="1">890</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">55</column>
+				</row>
+				<row>
+					<column id="1">983</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">60</column>
+				</row>
+				<row>
+					<column id="1">1082</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">65</column>
+				</row>
+				<row>
+					<column id="1">1188</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">70</column>
+				</row>
+				<row>
+					<column id="1">1301</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">75</column>
+				</row>
+				<row>
+					<column id="1">1421</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">80</column>
+				</row>
+				<row>
+					<column id="1">1547</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">85</column>
+				</row>
+				<row>
+					<column id="1">1680</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">90</column>
+				</row>
+				<row>
+					<column id="1">1820</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">95</column>
+				</row>
+				<row>
+					<column id="1">1966</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">100</column>
+				</row>
+				<row>
+					<column id="1">2119</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">105</column>
+				</row>
+				<row>
+					<column id="1">2279</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">110</column>
+				</row>
+				<row>
+					<column id="1">2446</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">115</column>
+				</row>
+				<row>
+					<column id="1">2619</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">120</column>
+				</row>
+				<row>
+					<column id="1">2799</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">125</column>
+				</row>
+				<row>
+					<column id="1">2985</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">130</column>
+				</row>
+				<row>
+					<column id="1">3178</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">135</column>
+				</row>
+				<row>
+					<column id="1">3378</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">140</column>
+				</row>
+			</table>
+			
+			<table name="Off-Peak 3">
+				<parameters>
+					<parameter name="GP Link" value="6"/>
+					<parameter name="HOT Link" value="1006"/>
+					<parameter name="Entering Links" value="5"/>
+					<parameter name="FF Price Coefficient" value="-1"/>
+					<parameter name="FF Intercept" value="0"/>
+					<parameter name="Congested Price Coefficient" value="-0.06262"/>
+					<parameter name="Congested Density Coefficient" value="0.01153"/>
+					<parameter name="Congested Intercept" value="-0.6931"/>
+					<parameter name="VehTypeIn" value="1"/>
+					<parameter name="VehTypeOut" value="2"/>
+					<parameter name="Start Time" value="68400"/>
+					<parameter name="Stop Time" value="86400"/>
+				</parameters>
+				<column_names>
+					<column_name name="HOT Lane Flow" key="false" id="1"/>
+					<column_name name="HOT Lane Speed" key="false" id="2"/>
+					<column_name name="GP Lane Speed" key="false" id="3"/>
+					<column_name name="Price" key="false" id="4"/>
+				</column_names>
+				<row>
+					<column id="1">0</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">25</column>
+				</row>
+				<row>
+					<column id="1">4000</column>
+					<column id="2">0</column>
+					<column id="3">0</column>
+					<column id="4">25</column>
+				</row>
+			</table>
+		</controller>
