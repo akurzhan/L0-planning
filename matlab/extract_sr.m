@@ -4,7 +4,8 @@ function fr_sr = extract_sr(gp_out, gp_id, fr_id, gp_up, vt)
 % fr_id - off-ramp id
 % vt - vehicle type
 
-fid = fopen(sprintf('%s%d.txt', gp_out, gp_id), 'rt');
+fname = sprintf('%s%d.txt', gp_out, gp_id);
+fid = fopen(fname, 'rt');
 A = textscan(fid, '%d\t%d\t%d\t%d\t%f', ...
                'Delimiter', '\t', 'CollectOutput', 1, 'HeaderLines', 0);
 fclose(fid);

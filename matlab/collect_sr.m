@@ -32,7 +32,7 @@ for i = 1:sz
     SR = [SR; zeros(1, numTime)];
     HSR = [HSR; zeros(1, numTime)];
   end
-  if hot_gates(i) ~= 0
+  if hot_gates(i) ~= 0 & 0
     GHSR = [GHSR; extract_sr(gp_out, gp_id(i), hov_id(i), gp_id(i-1), 0)];
     GHSR_i = [GHSR_i; extract_sr(gp_out, gp_id(i), gp_id(i), hov_id(i-1), 0)];
   else

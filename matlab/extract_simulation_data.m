@@ -78,7 +78,7 @@ for i = 1:m
   V = min([V; ffspeeds(i)*ones(1, 288)]);
   GP_V(i, :) = V;
   GP_D(i, :) = den;
-  inflow = ptr.inflow_veh{1}(:, idx) + ptr.inflow_veh{2}(:, idx);
+  %inflow = ptr.inflow_veh{1}(:, idx) + ptr.inflow_veh{2}(:, idx);
   inflow = 12*inflow';
   GP_F(i, :) = inflow;
 
@@ -247,23 +247,34 @@ end
 
 
 % write data to spreadsheet
-if 0
+if 1
 fprintf('Writing data to %s...\n', data_file);
 xlswrite(data_file, GP_V, 'GP_Speed', sprintf('i%d:kj%d', range(1), range(2)));
+pause(2);
 xlswrite(data_file, GP_F, 'GP_Flow', sprintf('i%d:kj%d', range(1), range(2)));
+pause(2);
 xlswrite(data_file, GP_D, 'GP_Density', sprintf('i%d:kj%d', range(1), range(2)));
+pause(2);
 xlswrite(data_file, gp_cd', 'GP_Density', sprintf('e%d:e%d', range(1), range(2)));
+pause(2);
 xlswrite(data_file, HOV_V, 'HOV_Speed', sprintf('i%d:kj%d', range(1), range(2)));
+pause(2);
 xlswrite(data_file, HOV_F, 'HOV_Flow', sprintf('i%d:kj%d', range(1), range(2)));
+pause(2);
 xlswrite(data_file, HOV_D, 'HOV_Density', sprintf('i%d:kj%d', range(1), range(2)));
+pause(2);
 xlswrite(data_file, hov_cd', 'HOV_Density', sprintf('e%d:e%d', range(1), range(2)));
+pause(2);
 xlswrite(data_file, ORF, 'On-Ramp_Flow', sprintf('k%d:kl%d', range(1), range(2)));
+pause(2);
 xlswrite(data_file, FRF, 'Off-Ramp_Flow', sprintf('k%d:kl%d', range(1), range(2)));
+pause(2);
 xlswrite(data_file, ORQ, 'On-Ramp_Queue', sprintf('k%d:kl%d', range(1), range(2)));
 sz = size(ORS_updated, 2);
 cursor = 2;
 for i =  1:sz
   in_count = size(ORS_updated(i).output, 1);
+  pause(2);
   xlswrite(data_file, ORS_updated(i).output, 'On-Ramp_SpecialData', sprintf('e%d:kf%d', cursor, cursor+in_count-1));
   cursor = cursor + in_count;
 end

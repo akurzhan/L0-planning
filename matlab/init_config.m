@@ -1,6 +1,7 @@
 
 root = fileparts(fileparts(mfilename('fullpath')));
 beats_jar = fullfile(fileparts(root), 'beats', 'target', 'beats-0.1-SNAPSHOT-jar-with-dependencies.jar');
+%beats_jar = fullfile(fileparts(root), 'beats', 'target', 'beats-0.1-SNAPSHOT.jar');
 
 auto_sr = 0;
 auto_config = 1;
@@ -18,6 +19,10 @@ orgf3 = 0;
 orgf4 = 0;
 
 destination_commodities = 0;
+
+%init_101S
+
+%init_10W_HOT
 
 %init_210E
 init_210E_HOT

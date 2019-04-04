@@ -10,7 +10,7 @@ range = [2 136];  % 210 EB
 
 pm_dir = 1;
 
-sr_control = 1;
+sr_control = 0;
 
 hot_buffer = 1;
 

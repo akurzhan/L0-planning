@@ -1,4 +1,4 @@
-function write_rm_controller_set_xml(fid, fr_demand_file, a_id)
+function write_sr_controller_set_xml(fid, fr_demand_file, a_id)
 % fid - file descriptor for the output xml
 % fr_demand_file - full path to the off-ramp demand XML
 % a_id - array of actuator IDs
