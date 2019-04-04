@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>I-10W</name>
+    <description/>
+    <Style id="icon-1899-0288D1-nodesc-normal">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="icon-1899-0288D1-nodesc-highlight">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="icon-1899-0288D1-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-0288D1-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-0288D1-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Folder>
+      <name>Significant Nodes</name>
+      <Placemark>
+        <name>Begin - Peck Road NB FR: 4-1; 781
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.0188092,34.0667583,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Node 1: 5-1; 883
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.0211038,34.0677411,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Valley Blvd FR: 5-1; 807
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.023952,34.0682885,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Valley Blvd OR: 5.5-2; 670
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.0266248,34.0682041,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Peck Road SB FR: 5-2; 906
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.0288115,34.0681291,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Peck Road SB OR: 4.5-2; 1700
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.0317995,34.0680858,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Santa Anita Ave FR: 4-2; 3448
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.0374147,34.0683402,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>WB1_G - Santa Anita Ave OR: 4-2; 2060
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.0483371,34.0707607,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>WB1_E - Temple City Blvd FR: 4-2; 1764
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.0545867,34.0727225,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Temple City Blvd OR: 4-2; 2820
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.0604217,34.0725714,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Rosemead Blvd FR: 4-2; 1674
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.0697578,34.0724303,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Rosemead Blvd OR: 4-2; 1816
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.0752939,34.0724003,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Walnut Grove FR: 4-2; 896
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.0813085,34.0723261,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Walnut Grove Ave OR: 4-2; 1389
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.0842697,34.0723105,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>San Gabriel Blvd FR: 4-2; 1276
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.0888697,34.0722305,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>San Gabriel Blvd OR: 4-2; 1357
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.0930928,34.0722083,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Del Mar Ave FR: 4-2; 850
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.0975869,34.0721017,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Del Mar Ave NB OR: 4-2; 1478
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.1003938,34.0720716,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>WB2 - Del Mar Ave SB OR / New Ave FR: 4-2; 1536
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.1052801,34.0721486,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>New Ave OR: 4-2; 2075
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.1103622,34.0719797,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>WB3: 4-2; 1165
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.1172176,34.0718511,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>S Garfield Ave FR: 4-2; 1240
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.1210732,34.0718222,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>S Garfield Ave OR: 4-2; 2207
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.1251703,34.0717854,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>S Atlantic Blvd FR: 4-2; 1247
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.1324806,34.0716921,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>S Atlantic Blvd OR: 4-2; 3891
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.1366112,34.0716444,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>WB45_G - S Fremont Ave FR: 4-2; 1230
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.1487885,34.0698036,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>WB45_E - S Fremont Ave OR: 4-2; 2313
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.1522257,34.0680017,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>WB4 - I-710 FR: 3-1; 1000
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -118.1586781,34.0645898,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>
